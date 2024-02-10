@@ -22,7 +22,7 @@ function handleHideTable(): void {
 
 </script>
 <template>
-  <div class="grid gap-4 bg-base-100 px-3 py-3.5">
+  <div class="grid gap-4 bg-base-100 p-3">
     <div class="flex items-center gap-2">
       <InfoIcon class="size-4 flex-none" />
       <span :class="classProfitText">Take Profit</span>

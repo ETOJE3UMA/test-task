@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<IProps>(), {
 	variant: 'base'
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'blur'])
 
 const mainClass = computed((): TComputedStyle => {
 	return [
@@ -47,6 +47,10 @@ function handleInput(event: Event): void {
 	const numberWithDot = /^[0-9]([,.])?$/
 
 	emit('update:modelValue', target.value)
+}
+
+function handleBlur(): void {
+	emit('blur')
 }
 
 function checkInput(event: KeyboardEvent): void {
@@ -76,6 +80,7 @@ function checkInput(event: KeyboardEvent): void {
         :class="inputClass"
         @keydown="checkInput"
         @input="handleInput"
+        @blur="handleBlur"
       >
       <span
         v-if="$slots"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import BaseInputNumber from '@/components/shared/BaseInputNumber.vue'
 import TakeProfit from '@/components/modules/order/TakeProfit.vue'
 import BaseButton from '@/components/shared/BaseButton.vue'
@@ -41,6 +41,7 @@ function submit(): void {
         id="price"
         v-model.number="store.price"
         :label="`Price, ${QUOTE_CURRENCY}`"
+        @update:model-value="store.setPrice()"
       />
     </div>
     <div>
