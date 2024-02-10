@@ -13,18 +13,19 @@ export const store = reactive({
 		this.amount = this.price > 0 ? total / this.price : 0
 	},
 	setPrice(): void {
-		this.targets.map((target: IProfitRow) => {
-			target.price = this.price * (1 + target.profit / 100)
-			target.profit = (target.price / this.price - 1) * 100
+		this.targets.forEach((target: IProfitRow) => {
+			target.price = this.price > 0 ? this.price * (1 + target.profit / 100) : 0
+			target.profit = this.price > 0 ? (target.price / this.price - 1) * 100 : 0
 		})
 	},
 	projectedProfit(): number {
-		let totalProfit = 0
-		this.targets.map((target: IProfitRow) => {
-			totalProfit += target.amount * (target.price - this.price)
-		})
+		const totalProfit = this.targets.reduce((acc, rec) => {
+			acc += rec.amount * (rec.price - this.price)
+			return acc
+		}, 0)
 
 		return Number(totalProfit.toFixed(2))
 	},
 	targets: [] as Array<IProfitRow>,
+	error: ''
 })

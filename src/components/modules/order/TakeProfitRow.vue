@@ -51,6 +51,7 @@ function handleAmountCount(): void {
 	})
 }
 
+
 function handleBlurPrice(): void {
 	currentTarget.profit = (currentTarget.price / store.price - 1) * 100
 }

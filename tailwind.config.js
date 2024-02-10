@@ -43,6 +43,9 @@ export default {
 					900: '#7e2010',
 					950: '#440c06',
 				},
+				red: {
+					500: '#E16969'
+				}
 			},
 			boxShadow: {
 				custom: '-1px 1px 4px 0px #00000040'

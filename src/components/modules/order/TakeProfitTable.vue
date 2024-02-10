@@ -5,6 +5,7 @@ import AddIcon from '@/components/icons/AddIcon.vue'
 import { store } from '@/store'
 import TakeProfitRow from '@/components/modules/order/TakeProfitRow.vue'
 import { QUOTE_CURRENCY } from '@/constants.ts'
+import BaseError from '@/components/shared/BaseError.vue'
 
 const emit = defineEmits(['hide'])
 
@@ -65,6 +66,7 @@ function handleDeleteOrder(index: number): void {
         </div>
       </div>
     </div>
+    <BaseError v-if="store.error" />
     <BaseButton
       v-if="store.targets.length < 5"
       :label="getOrderButtonLabel"
