@@ -15,9 +15,9 @@ const getOrderButtonLabel = computed((): string => {
 
 function handleAddOrder(): void {
 	store.targets.push({
-		profit: 0,
-		price: 0,
-		amount: 0
+		profit:'0',
+		price: '0',
+		amount: '0'
 	})
 }
 

@@ -9,7 +9,7 @@ defineOptions({
 type TButtonVariant = 'base' | 'small'
 
 interface IProps {
-  modelValue: number,
+  modelValue: string,
   id: string,
   label?: string,
   variant?: TButtonVariant
@@ -44,7 +44,6 @@ const inputClass = computed((): TComputedStyle => {
 
 function handleInput(event: Event): void {
 	const target = event.target as HTMLInputElement
-	const numberWithDot = /^[0-9]([,.])?$/
 
 	emit('update:modelValue', target.value)
 }
@@ -74,9 +73,7 @@ function checkInput(event: KeyboardEvent): void {
     <div class="flex">
       <input
         :id="id"
-        type="number"
         v-bind="$attrs"
-        step="any"
         :value="modelValue"
         :class="inputClass"
         @keydown="checkInput"

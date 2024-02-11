@@ -5,6 +5,7 @@ import BaseButton from '@/components/shared/BaseButton.vue'
 import WarningIcon from '@/components/icons/WarningIcon.vue'
 import { store } from '@/store'
 import { onBeforeMount } from 'vue'
+import BigNumber from 'bignumber.js'
 
 interface IProps {
   index: number
@@ -20,18 +21,18 @@ const currentTarget = store.targets[props.index]
 const previousTarget = store.targets[props.index - 1]
 
 function handleDeleteOrder(index: number): void {
-	store.targets[0].amount += store.targets[index].amount
+	store.targets[0].amount = new BigNumber(store.targets[0].amount).plus(store.targets[index].amount).toString()
 
 	emit('deleteOrder', index)
 }
 
 onBeforeMount(() => {
 	if (!props.index) {
-		currentTarget.profit = 2
-		currentTarget.amount = 100
+		currentTarget.profit = '2'
+		currentTarget.amount = '100'
 	} else {
-		currentTarget.profit = previousTarget.profit + 2
-		currentTarget.amount = 20
+		currentTarget.profit = new BigNumber(previousTarget.profit).plus(2).toString()
+		currentTarget.amount = '20'
 		handleAmountCount()
 	}
 
@@ -42,22 +43,21 @@ function handleAmountCount(): void {
 	let maxAmount
 
 	store.targets.map((item) => {
-		maxAmount = Math.max(0, item.amount)
+		maxAmount = Math.max(0, new BigNumber(item.amount).toNumber()).toString()
 
-		if (item.amount === maxAmount && item.amount !== 20) {
-			maxAmount -= 20
+		if (new BigNumber(item.amount).eq(maxAmount) && !(new BigNumber(item.amount).eq(20))) {
+			maxAmount = new BigNumber(maxAmount).minus(20).toString()
 			item.amount = maxAmount
 		}
 	})
 }
 
-
 function handleBlurPrice(): void {
-	currentTarget.profit = (currentTarget.price / store.price - 1) * 100
+	currentTarget.profit = new BigNumber(100).mul((new BigNumber(currentTarget.price).div(store.price).minus(1))).toString()
 }
 
 function handleBlurProfit(): void {
-	currentTarget.price = store.price * (1 + currentTarget.profit / 100)
+	currentTarget.price = new BigNumber(store.price).mul((new BigNumber(currentTarget.profit).div(100).plus(1))).toString()
 }
 </script>
 
@@ -65,7 +65,7 @@ function handleBlurProfit(): void {
   <div class="table-cell max-w-0.5 pt-3 pr-7 pb-1">
     <BaseInputNumber
       :id="`targetProfit-${index}`"
-      v-model.number="currentTarget.profit"
+      v-model="currentTarget.profit"
       variant="small"
       @blur="handleBlurProfit"
     >
@@ -75,7 +75,7 @@ function handleBlurProfit(): void {
   <div class="table-cell w-full pt-3 pr-7 pb-1">
     <BaseInputNumber
       :id="`targetPrice-${index}`"
-      v-model.number="currentTarget.price"
+      v-model="currentTarget.price"
       variant="small"
       @blur="handleBlurPrice"
     >
@@ -86,7 +86,7 @@ function handleBlurProfit(): void {
     <div class="flex justify-between gap-x-7">
       <BaseInputNumber
         :id="`targetAmount-${index}`"
-        v-model.number="currentTarget.amount"
+        v-model="currentTarget.amount"
         variant="small"
       >
         %

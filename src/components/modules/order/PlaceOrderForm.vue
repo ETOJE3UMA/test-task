@@ -61,7 +61,7 @@ function handleSubmit(): void {
     <div>
       <BaseInputNumber
         id="price"
-        v-model.number="store.price"
+        v-model="store.price"
         :label="`Price, ${QUOTE_CURRENCY}`"
         @update:model-value="store.setPrice()"
       />
@@ -69,7 +69,7 @@ function handleSubmit(): void {
     <div>
       <BaseInputNumber
         id="amount"
-        v-model.number="store.amount"
+        v-model="store.amount"
         :label="`Amount, ${BASE_CURRENCY}`"
       />
     </div>

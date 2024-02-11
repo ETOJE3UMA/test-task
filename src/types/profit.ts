@@ -1,5 +1,5 @@
 export interface IProfitRow {
-  profit: number,
-  price: number,
-  amount: number
+  profit: string,
+  price: string,
+  amount: string
 }
