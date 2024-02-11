@@ -12,7 +12,7 @@ export function checkProfitSum(): void {
 }
 
 export function checkProfitMin(): void {
-	const isProfitMinimumError = store.targets.some((target) => new BigNumber(target.profit).lt(0.01))
+	const isProfitMinimumError = store.targets.some((target) => new BigNumber(target.profit || 0).lt(0.01))
 
 	if (isProfitMinimumError) {
 		throw new Error('Minimum profit value is 0.01%')
@@ -23,7 +23,7 @@ export function checkProfitPrevious(): void {
 	const isCurrentMoreThenPrevious = store.targets.every((target, index, array) => {
 
 		const nextIndex = index + 1
-		return new BigNumber(nextIndex).lt(array.length) ? new BigNumber(target.profit).lte(array[nextIndex].profit) : true
+		return new BigNumber(nextIndex).lt(array.length) ? new BigNumber(target.profit || 0).lt(array[nextIndex].profit) : true
 	})
 
 	if (!isCurrentMoreThenPrevious) {
@@ -32,7 +32,7 @@ export function checkProfitPrevious(): void {
 }
 
 export function checkPriceMoreThanNull(): void {
-	const isPriceLessThanNull = store.targets.some((target) => new BigNumber(target.price).lt(0))
+	const isPriceLessThanNull = store.targets.some((target) => new BigNumber(target.price || 0).lt(0))
 
 	if (isPriceLessThanNull) {
 		throw new Error('Price must be greater than 0')
@@ -41,7 +41,7 @@ export function checkPriceMoreThanNull(): void {
 
 export function checkAmountSum(): void {
 	const amountSum = store.targets.reduce((acc, rec) => {
-		return new BigNumber(acc).plus(rec.amount).toString()
+		return new BigNumber(acc).plus(rec.amount || 0).toString()
 	}, '0')
 
 	if (new BigNumber(amountSum).gt(100)) {

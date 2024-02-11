@@ -49,7 +49,7 @@ function handleDeleteOrder(index: number): void {
         <p class="table-cell pr-7">
           Target price
         </p>
-        <p class="table-cell whitespace-nowrap">
+        <p class="table-cell pl-1 whitespace-nowrap">
           Amount to {{ store.activeOrderSide }}
         </p>
       </div>

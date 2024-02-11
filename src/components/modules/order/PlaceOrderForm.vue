@@ -32,7 +32,7 @@ function handleSubmit(): void {
 
 		store.error = ''
 
-		console.log('submit')
+		console.log('submit', store)
 	} catch (error: unknown) {
 		if (error instanceof Error) {
 			store.error = error.message
@@ -89,7 +89,7 @@ function handleSubmit(): void {
         type="submit"
         variant="accent"
         class="py-3 px-5"
-        :full-width="true"
+        full-width
         :label="submitButtonText"
       />
     </div>

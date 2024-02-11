@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import InfoIcon from '@/components/icons/InfoIcon.vue'
 import BaseToggle from '@/components/shared/BaseToggle.vue'
-import { computed, ref } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import TakeProfitTable from '@/components/modules/order/TakeProfitTable.vue'
 import { TComputedStyle } from '@/types/ui.ts'
+import { store } from '@/store'
 
 const isTakeProfit = ref<boolean>(false)
 
@@ -19,6 +20,12 @@ const classProfitText = computed((): TComputedStyle => {
 function handleHideTable(): void {
 	isTakeProfit.value = false
 }
+
+watchEffect(() => {
+	if (!isTakeProfit.value) {
+		store.error = ''
+	}
+})
 
 </script>
 <template>

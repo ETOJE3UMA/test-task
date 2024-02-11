@@ -53,16 +53,16 @@ function handleAmountCount(): void {
 }
 
 function handleBlurPrice(): void {
-	currentTarget.profit = new BigNumber(100).mul((new BigNumber(currentTarget.price).div(store.price).minus(1))).toString()
+	currentTarget.profit = new BigNumber(100).mul((new BigNumber(currentTarget.price || 0).div(store.price).minus(1))).toString()
 }
 
 function handleBlurProfit(): void {
-	currentTarget.price = new BigNumber(store.price).mul((new BigNumber(currentTarget.profit).div(100).plus(1))).toString()
+	currentTarget.price = new BigNumber(store.price || 0).mul((new BigNumber(currentTarget.profit || 0).div(100).plus(1))).toString()
 }
 </script>
 
 <template>
-  <div class="table-cell max-w-0.5 pt-3 pr-7 pb-1">
+  <div class="table-cell max-w-0.5 pt-[11px] pr-7 pb-1">
     <BaseInputNumber
       :id="`targetProfit-${index}`"
       v-model="currentTarget.profit"
@@ -72,7 +72,7 @@ function handleBlurProfit(): void {
       %
     </BaseInputNumber>
   </div>
-  <div class="table-cell w-full pt-3 pr-7 pb-1">
+  <div class="table-cell w-full pt-[11px] pr-7 pb-1">
     <BaseInputNumber
       :id="`targetPrice-${index}`"
       v-model="currentTarget.price"
@@ -82,7 +82,7 @@ function handleBlurProfit(): void {
       {{ QUOTE_CURRENCY }}
     </BaseInputNumber>
   </div>
-  <div class="table-cell max-w-3 pt-3 pb-1">
+  <div class="table-cell max-w-3 pt-[11px] pb-1">
     <div class="flex justify-between gap-x-7">
       <BaseInputNumber
         :id="`targetAmount-${index}`"
