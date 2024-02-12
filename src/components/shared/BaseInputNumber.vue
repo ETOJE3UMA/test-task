@@ -75,6 +75,7 @@ function checkInput(event: KeyboardEvent): void {
         :id="id"
         v-bind="$attrs"
         type="number"
+        step="any"
         :value="modelValue"
         :class="inputClass"
         @keydown="checkInput"

@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js'
 
 export function checkProfitSum(): void {
 	const profit = store.targets.reduce((acc, rec) => {
-		return new BigNumber(acc).plus(rec.profit).toString()
+		return new BigNumber(acc).plus(rec.profit || 0).toString()
 	}, '0')
 
 	if (new BigNumber(profit).gte(500)) {

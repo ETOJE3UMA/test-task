@@ -16,9 +16,9 @@ export const store = reactive({
 	setPrice(): void {
 		this.targets.forEach((target: IProfitRow) => {
 			if (this.activeOrderSide === 'buy') {
-				target.price = new BigNumber(this.price).gt(0) ? new BigNumber(this.price).mul((new BigNumber(target.profit || 0).div(100).plus(1))).toString() : '0'
+				target.price = new BigNumber(this.price || 0).gt(0) ? new BigNumber(this.price || 0).mul((new BigNumber(target.profit || 0).div(100).plus(1))).toString() : '0'
 			} else {
-				target.price = new BigNumber(this.price).gt(0) ? new BigNumber(this.price).mul((new BigNumber(target.profit || 0).div(100).minus(1))).toString() : '0'
+				target.price = new BigNumber(this.price || 0).gt(0) ? new BigNumber(this.price || 0).mul((new BigNumber(target.profit || 0).div(100).minus(1))).toString() : '0'
 			}
 
 			if (new BigNumber(this.price || 0).lte(0)) {
